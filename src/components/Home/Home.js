@@ -1,11 +1,17 @@
-import React from 'react'
+import React, { useContext } from "react";
+import LoginContextAuth from "../../context/LoginContext";
+import Button from "../UI/Button/Button";
+import Card from "../UI/Card/Card";
+import "./Home.css";
 
 const Home = () => {
+  const authCtx = useContext(LoginContextAuth);
   return (
-    <div>
+    <Card className="home">
       <h1>Welcome back!</h1>
-    </div>
-  )
-}
+      <Button onClick={authCtx.onLogout}>Logout</Button>
+    </Card>
+  );
+};
 
-export default Home
+export default Home;

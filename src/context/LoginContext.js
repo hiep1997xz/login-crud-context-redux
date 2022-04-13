@@ -2,9 +2,11 @@ import React, { createContext, useEffect, useState } from "react";
 
 const LoginContextAuth = createContext({
   isLogged: false,
+  onLogout: () => {},
+  onLogin: (emailAuth, passwordAuth) => {},
 });
 
-const LoginContext = (props) => {
+export const LoginContext = (props) => {
   const [isLogged, setIsLogged] = useState(false);
 
   useEffect(() => {
@@ -14,21 +16,25 @@ const LoginContext = (props) => {
     }
   }, []);
 
-  const logoutHandle = () => setIsLogged(false);
+  const logoutHandle = () => {
+    setIsLogged(false);
+  };
 
-  const loginHandle = () => setIsLogged(true);
+  const loginHandle = () => {
+    setIsLogged(true);
+  };
 
   return (
-    <LoginContextAuth
+    <LoginContextAuth.Provider
       value={{
         isLogged: isLogged,
-        logoutHandle: logoutHandle,
-        loginHandle: loginHandle,
+        onLogout: logoutHandle,
+        onLogin: loginHandle,
       }}
     >
-      {props.chidren}
-    </LoginContextAuth>
+      {props.children}
+    </LoginContextAuth.Provider>
   );
 };
 
-export default LoginContext;
+export default LoginContextAuth;
